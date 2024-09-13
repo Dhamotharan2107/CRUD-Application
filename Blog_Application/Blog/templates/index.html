@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>All BLOGS</h2>
+<form method="get" action="{% url 'filter' %}">
+    <label>Filter by Authors:</label>
+    <input type="text" name="search">
+    <button type="submit">Filter</button>
+</form>
+
+<div class="container">
+    {% for task in blogs %}
+
+        <div class="items">
+            <h3>ID - {{ task.id }}</h3>
+            <h2>TITLE - {{ task.title }}</h2>
+
+            <div class="purl">
+                <p>{{ task.content }}</p>
+            </div>
+
+            <div class="purl">
+                <p>AUTHOR - {{ task.author }}</p>
+            </div>
+
+            <div class="purl">
+                <p>TAGS :- {{ task.tags }}</p>
+            </div>
+            <div class="purl">
+                {% if task.image %}
+                    <img src="{{ task.image.url }}" alt="Image">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+            </div>
+
+            <div class='buttons'>
+                <a class='btn' href="{% url 'edit_task' task.pk %}">Edit</a>
+                <a style='background-color:#f25042' class='btn' href="{% url 'delete_task' task.pk %}">Delete</a>
+            </div>
+
+        </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}
